@@ -109,6 +109,8 @@ table.board {
 
 p.alertBanner{
   font-family: "Bungee Outline", sans-serif;
+  font-size: 40px;
+  font-weight: 900;
   color: rgb(255,255,51);
   background-color: rgba(0, 0, 0, 0.8);
   max-width: 300px;
@@ -116,7 +118,6 @@ p.alertBanner{
   margin-top: 10px;
   margin-bottom: 20px;
   padding: 15px;
-  font-size: 20px;
   border-radius: 15px;
 }
 

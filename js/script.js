@@ -4,7 +4,7 @@ $(document).ready(function () {
   $('.board').on('click', changeUser)
   $('td').on('click', markSpace)
   $('tr').on('click', winAlert)
-
+  $('button').on('click', reset)
 });
 
 
@@ -12,6 +12,11 @@ $(document).ready(function () {
 var count1 = 0;
 var count2 = 0;
 var countCat = 0;
+
+function reset(e) {
+  e.preventDefault()
+  $('td.marked').empty().removeClass("marked")
+}
 
 function winAlert(e) {
   e.preventDefault()
@@ -28,36 +33,25 @@ function winAlert(e) {
   var diagnolRightWin = $('#column .3,.5,.7').text() === 'XXX' || $('#column .3,.5,.7').text() === 'OOO';
 
 
-if (topRowWin || middleRowWin || bottomRowWin ||
+  if (topRowWin || middleRowWin || bottomRowWin ||
       leftColumnWin || rightColumnWin || middleColumnWin ||
       diagnolRightWin || diagnolLeftWin) {
-    alert('You Won' + ' ' + $('h2').text() + '!');
-      function emptyBoard() {
-        $('td.marked').empty().removeClass("marked")
+      $('p').text('You Won' + ' ' + $('h2').text() + '!');
+      function scoreBoard() {
           if ($('#currentPlayer').html() === '1') {
               count1++;
               $("#playerOneScore").html(" " + count1);
             }
-          else if ($('#currentPlayer').text() === '2') {
+          else if ($('#currentPlayer').html() === '2') {
               count2++;
               $("#playerTwoScore").html(" " + count2);
           }
       }
-    return emptyBoard();
-
-
+      return scoreBoard();
   } else if ($('#column .marked').length === 9) {
-    function emptyBoard() {
-      $('td.marked').empty().removeClass("marked")
-      alert('the cat won!');
-        countCat++;
-        $("#playerCatScore").html(" " + countCat);
-    }
-    return emptyBoard();
-  }
+      $('p').text('You Won' + ' ' + 'CAT' + '!');
+  } 
 }
-
-
 
 
 function changeUser(e) {
@@ -72,13 +66,15 @@ function changeUser(e) {
 
 function markSpace(e) {
   e.preventDefault()
-
-  if ($(this).html() != '') {
-          alert('TAKEN');
-  } else if ($('#currentPlayer').html() === '1'){
+    if ($(this).html() != '') {
+      alert('taken');
+      event.stopPropagation();
+    } else if ($('#currentPlayer').html() === '1'){
     $(this).addClass("marked").text('X');
 
   } else if ($('#currentPlayer').html() === '2') {
     $(this).addClass("marked").text('O');
   }
 }
+
+    //if ($(this).html() != '') {alert('taken');}
